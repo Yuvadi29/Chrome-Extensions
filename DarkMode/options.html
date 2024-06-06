@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Dark Mode</title>
+    <script src="options.js"></script>
+</head>
+
+<body>
+    <h1>Auto Dark Mode</h1>
+    <form id="optionsForm">
+        <label for="startHour">Start Hour (24-hour format):</label>
+        <input type="number" id="startHour" name="startHour" min="0" max="23" required>
+        <br>
+        <label for="endHour">End Hour (24-hour format):</label>
+        <input type="number" id="endHour" name="endHour" min="0" max="23" required>
+        <br>
+        <button type="submit">Save</button>
+    </form>
+</body>
+
+</html>
