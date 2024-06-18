@@ -21,8 +21,10 @@ document.getElementById('summarize').addEventListener('click', () => {
 
 function summarizePage() {
     let text = document.body.innerText;
+    const port = process.env.PORT || 8000;
 
-    fetch('http://127.0.0.1:5000/summarize', {
+
+    fetch(`http://127.0.0.1:${port}/summarize`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
