@@ -5,9 +5,7 @@ document.getElementById('summarize').addEventListener('click', () => {
     }, (tabs) => {
         chrome.scripting.executeScript(
             {
-                target: {
-                    tabId: tabs[0].id
-                },
+                target: { tabId: tabs[0].id },
                 function: summarizePage,
             },
             (results) => {
@@ -20,23 +18,24 @@ document.getElementById('summarize').addEventListener('click', () => {
 });
 
 function summarizePage() {
-    let text = document.body.innerText;
-    const port = process.env.PORT || 8000;
+    return new Promise((resolve, reject) => {
+        let text = document.body.innerText;
+        const port = 5000;
 
-
-    fetch(`http://127.0.0.1:${port}/summarize`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ text: text })
-    })
-        .then(response => response.json())
-        .then(data => {
-            return data.summary;
+        fetch(`http://127.0.0.1:${port}/summarize`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ text: text })
         })
-        .catch(error => {
-            console.log('Error: ', error);
-            return 'An error occurred while summarizing the text.';
-        });
+            .then(response => response.json())
+            .then(data => {
+                resolve(data.summary);
+            })
+            .catch(error => {
+                console.log('Error: ', error);
+                resolve('An error occurred while summarizing the text.');
+            });
+    });
 }
